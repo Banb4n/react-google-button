@@ -9,6 +9,7 @@ export default class GoogleButton extends PureComponent {
     disabled: PropTypes.bool,
     tabIndex: PropTypes.number,
     onClick: PropTypes.func,
+    onTouchStart: PropTypes.func,
     type: PropTypes.oneOf(['light', 'dark']),
     style: PropTypes.object
   }
@@ -53,6 +54,13 @@ export default class GoogleButton extends PureComponent {
       this.props.onClick(e)
     }
   }
+  
+  
+  touch = e => {
+    if (!this.props.disabled) {
+      this.props.onTouchStart(e)
+    }
+  }
 
   render() {
     const { label, style, ...otherProps } = this.props
@@ -62,6 +70,7 @@ export default class GoogleButton extends PureComponent {
         {...otherProps}
         role="button"
         onClick={this.click}
+        onTouchStart={this.onTouch}
         style={this.getStyle(style)}
         onMouseOver={this.mouseOver}
         onMouseOut={this.mouseOut}
